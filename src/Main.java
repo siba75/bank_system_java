@@ -17,44 +17,32 @@ public class Main {
         System.out.println("   BANKING SYSTEM - TERMINAL DEMO ");
         System.out.println("=================================");
 
-        // ==========================
         // Customers
-        // ==========================
         Customer c1 = new Customer("Siba Halawa", "siba@example.com", "123456");
         Customer c2 = new Customer("siba mohammed halawa ", "sibahalawa@example.com", "123456");
 
-        // ==========================
         // Accounts (Factory Pattern)
-        // ==========================
         Account savings = AccountFactory.createAccount("savings", c1);
         Account loan = AccountFactory.createAccount("loan", c1);
         Account current = AccountFactory.createAccount("current", c2);
 
-        // ==========================
         // Observer Pattern (Notifications)
-        // ==========================
         savings.registerObserver(new EmailNotifier(c1.getEmail()));
         loan.registerObserver(new EmailNotifier(c1.getEmail()));
         current.registerObserver(new EmailNotifier(c2.getEmail()));
 
-        // ==========================
         // Decorator Pattern
-        // ==========================
         savings = new OverdraftProtection(savings);
         savings = new PremiumServices(savings);
         loan = new Insurance(loan);
 
-        // ==========================
         // Composite Pattern (Admin View)
-        // ==========================
         CompositeAccount bankOverview = new CompositeAccount("Bank Overview");
         bankOverview.addAccount(savings);
         bankOverview.addAccount(loan);
         bankOverview.addAccount(current);
 
-        // ==========================
         // MAIN LOGIN LOOP
-        // ==========================
         boolean systemRunning = true;
 
         while (systemRunning) {

@@ -18,5 +18,10 @@ public abstract class AccountDecorator extends Account {
         account.displayInfo(); // عرض معلومات الحساب الأساسي
     }
 
+    @Override
+    public double getBalance() {
+        return account.getBalance();
+    }
+
     // يمكن إضافة ميزات إضافية هنا
 }
