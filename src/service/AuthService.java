@@ -1,5 +1,7 @@
 package service;
 
+import model.Customer;
+
 public class AuthService {
 
     // بيانات ثابتة للعرض الأكاديمي
@@ -7,6 +9,12 @@ public class AuthService {
     private static final String ADMIN_PASSWORD = "admin123";
 
     private static final String CUSTOMER_PASSWORD = "123456";
+
+    private static Customer authenticatedCustomer;
+
+    public static Customer getAuthenticatedCustomer() {
+        return authenticatedCustomer;
+    }
 
     /**
      * Authentication method
@@ -24,11 +32,13 @@ public class AuthService {
         }
 
         // ===== CUSTOMER AUTH =====
-        if (role.equalsIgnoreCase("CUSTOMER")) {
-            // محاكاة تحقق زبون (أي إيميل مع باسورد صحيح)
-            return password.equals(CUSTOMER_PASSWORD);
+        if (role.equalsIgnoreCase("CUSTOMER") && password.equals(CUSTOMER_PASSWORD)) {
+            authenticatedCustomer = new Customer("Authenticated User", email, password);
+            return true;
         }
 
         return false;
     }
+
+  
 }
